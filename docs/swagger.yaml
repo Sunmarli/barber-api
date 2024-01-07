@@ -1,0 +1,27 @@
+openapi: 3.0.2
+info:
+  title: Barbers-API
+  version: 1.0.0
+  description: |-
+    ### This is a Swagger UI for our Barbers API
+paths:
+  /barber:
+    get:
+      tags:
+        - barbers
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+              examples:
+                List of Barbers:
+                  value:
+                    - John Wick
+                    - Will Smith
+          description: 'Returns a list of barbers, kus barbers on vastav sinu API-le.'
+      summary: Get list of barbers
+      description: returns all list of barbers
