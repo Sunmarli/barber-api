@@ -48,13 +48,13 @@ app.post('/barbers',(req,res)=>{
 });
 
 
-app.delete('/barbers/:id', (req, res) =>{
-    if(typeof barbers[req.params.id - 1] === 'undefined'){
-        return res.status(404).send({error: "barber not found"})
-    };
-    barbers.splice(req.params.id -1, 1);
-    res.status(204).send({error: "No Content"});
-});
+    app.delete('/barbers/:id', (req, res) =>{
+        if(typeof barbers[req.params.id - 1] === 'undefined'){
+            return res.status(404).send({error: "barber not found"})
+        };
+        barbers.splice(req.params.id -1, 1);
+        res.status(204).send({error: "No Content"});
+    });
 
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
