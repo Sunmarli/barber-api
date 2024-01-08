@@ -24,13 +24,13 @@ const barbers = [
 app.get('/barbers', (req,res)=>{
     res.send(barbers)
 })
-// app.get('/barbers/:id', (req,res)=>{
+app.get('/barbers/:id', (req,res)=>{
 
-//     if (typeof barbers[req.params.id -1]==='undefined'){
-//         return res.status(404).send({error:"Barber not found"})
-//     }
-//     res.send(barbers[req.params.id -1])    
-// })
+    if (typeof barbers[req.params.id -1]==='undefined'){
+        return res.status(404).send({error:"Barber not found"})
+    }
+    res.send(barbers[req.params.id -1])    
+})
 
 app.post('/barbers',(req,res)=>{
     if(!req.body.name || !req.body.working_day || !req.body.specialization){
