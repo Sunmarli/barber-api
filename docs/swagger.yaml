@@ -25,3 +25,116 @@ paths:
           description: 'Returns a list of barbers, kus barbers on vastav sinu API-le.'
       summary: Get list of barbers
       description: returns all list of barbers
+    post:
+      tags:
+        - barbers
+      requestBody:
+                description: A new barber to be created
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/error'
+                        examples:
+                            Parameters missing:
+                                value:
+                                    error: One or all parameters are missing
+                required: true
+            tags:
+                - new-barber
+            responses:
+                '201':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/new-barber'
+                            examples:
+                                Barber that is added:
+                                    value:                                     
+                                        name: "John Wick"
+                                        working_day: "Monday"
+                                        specialization: "Haircuts"
+                    description: New barber has been created.
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: |
+                        One or all parametrers are missing
+            summary: Create a barber into the API(either db or array)
+            description: |
+                Creates a new barber
+    '/barbers/{id}':
+        get:
+            tags:
+                - details
+            parameters:
+                -
+                    examples:
+                        ID:
+                            value: '65'
+                    name: id
+                    description: ID of barber.
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Details of a barber:
+                                    value: |4
+
+                                           { id: 1, name: "John Wick", working_day: "Monday", specialization: "Haircuts" },
+                    description: Return full details of a given id barber
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Game/w+ was not found:
+                                    value:
+                                        error: barber \w+ was not found in game array.
+                    description: Game was not found in games array.
+            operationId: id
+            summary: Returns full details of a given barber.
+            description: |
+                Returns full details of a given barber, based on user input id by user.
+components:
+    schemas:
+        error:
+            title: Root Type for error
+            description: ''
+            type: object
+            properties:
+                error:
+                    type: string
+            example:
+                error: Error message.
+        new-game:
+            title: Root Type for new-barber
+            description: new barber object
+            required:
+                - name
+                - working_day
+                - specialization
+            type: object
+            properties:
+                name:
+                    type: string
+                price:
+                    format: double
+                    type: number
+                rating:
+                    type: integer
+            example:
+                name: Lile
+                working_day: Monday
+                specialization: Haircut
