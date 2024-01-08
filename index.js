@@ -32,20 +32,20 @@ app.get('/barbers/:id', (req,res)=>{
     res.send(barbers[req.params.id -1])    
 })
 
-app.post('/barbers',(req,res)=>{
-    if(!req.body.name || !req.body.working_day || !req.body.specialization){
-        return res.status(400).send({error: "One or all parameteres are missing"})
-    }
-    let game = {
-        id:barbers.length +1,
-        name:req.body.name,
-        working_day:req.body.working_day,
-        specialization:req.body.specialization
-    }
-    barbers.push(barbers)
+// app.post('/barbers',(req,res)=>{
+//     if(!req.body.name || !req.body.working_day || !req.body.specialization){
+//         return res.status(400).send({error: "One or all parameteres are missing"})
+//     }
+//     let game = {
+//         id:barbers.length +1,
+//         name:req.body.name,
+//         working_day:req.body.working_day,
+//         specialization:req.body.specialization
+//     }
+//     barbers.push(barbers)
     
-    res.status(201).location(`${getBaseUrl(req)}/barbers/${barbers.length}`).send(barbers)
-});
+//     res.status(201).location(`${getBaseUrl(req)}/barbers/${barbers.length}`).send(barbers)
+// });
 
 
     app.delete('/barbers/:id', (req, res) =>{
