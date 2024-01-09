@@ -1,4 +1,5 @@
 const express=require('express')
+const cors=require('cors')
 const app=express()
 const port=8081
 
@@ -8,7 +9,7 @@ const swaggerDocument=yamljs.load('./docs/swagger.yaml')
 
 app.use(express.json())
 //const swaggerDocument = require('./docs/swagger.json');
-
+app.use(cors())
 
 const barbers = [
     { id: 1, name: "John Wick", working_day: "Monday", specialization: "Haircuts" },
@@ -48,13 +49,13 @@ app.post('/barbers',(req,res)=>{
 });
 
 
-    app.delete('/barbers/:id', (req, res) =>{
+app.delete('/barbers/:id', (req, res) =>{
         if(typeof barbers[req.params.id - 1] === 'undefined'){
             return res.status(404).send({error: "barber not found"})
         };
         barbers.splice(req.params.id -1, 1);
         res.status(204).send({error: "No Content"});
-    });
+});
 
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
