@@ -33,13 +33,21 @@ app.get("/errors", async (req,res) => {
 })
 
 // method 1, we subtract one from the id input by the user.
+/*  app.get('/barbers/:id', (req, res) => {
+    if (typeof barbers[req.params.id - 1] === 'undefined'){
+        return res.status(404).send({error: "barber not found"})
+    }
+    res.send(barbers[req.params.id - 1])
+ })
+ */
+
  app.get('/barbers/:id', (req, res) => {
     if (typeof barbers[req.params.id - 1] === 'undefined'){
         return res.status(404).send({error: "barber not found"})
     }
     res.send(barbers[req.params.id - 1])
  })
-
+ 
 // method 2, we locate the item with the described id in the request, irrelevant of its location in the array.
 // app.get('/barbers/:id', (req, res) => {
 //     if (typeof barbers[req.params.id - 1] === 'undefined'){
