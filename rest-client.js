@@ -1,20 +1,19 @@
 const vue = Vue.createApp({
     data() {
-        return { 
-            barbers: [  { id: 1, name: "John Wick", working_day: "Monday", specialization: "Haircuts" },],
-            barberInModal: { id: 1,
-                name: "John Wick",
-                specialization: "Haircuts",}, 
+        return {
+            barberInModal: {name: null},
+            barbers: []
         }
-},
-async created() {
-    this.barbers = await (await fetch('http://localhost:8081/barbers')).json();
-},
-methods: {
-    getBarber: async function(id) {
-        this.barberInModal = await (await fetch(`http://localhost:8081/barbers/${id}`)).json();
-        let barberInfoModal = new bootstrap.Modal(document.getElementById('barberInfoModal'), {})
-        barberInfoModal.show();
+    },
+    async created() {
+        this.barbers = await (await fetch('http://localhost:8080/barbers')).json();
+    },
+    methods: {
+        getbarber: async function (id) {
+            this.barberInModal = await (await fetch(`http://localhost:8080/barbers/${id}`)).json();
+            let barberInfoModal = new bootstrap.Modal(document.getElementById('barberInfoModal'), {})
+            barberInfoModal.show();
+        }
+        
     }
-}
-}).mount('#app')
+}).mount('#app')	
