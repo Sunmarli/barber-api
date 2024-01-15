@@ -1,0 +1,24 @@
+CREATE TABLE `barbers` (
+  `id` int,
+  `name` varchar(30),
+  `working_day` varchar(30),
+  `specialization` varchar(30)
+);
+
+CREATE TABLE `client` (
+  `clientID` INT,
+  `clientName` varchar(30),
+  `clientSurename` varchar(30),
+  `email` varchar(30),
+  `phone` varchar(30)
+);
+
+CREATE TABLE `orders` (
+  `orderID` INT,
+  `barberID` INT,
+  `clientID` INT,
+  `day` DATETIME,
+  FOREIGN KEY (`barberID`) REFERENCES `barbers`(`id`),
+  FOREIGN KEY (`clientID`) REFERENCES `client`(`clientID`)
+);
+
