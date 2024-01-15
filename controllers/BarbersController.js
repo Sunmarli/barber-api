@@ -31,24 +31,6 @@ exports.createNew = async (req, res) => {
     .json(barber);
     console.log(barber)
 }
-
-exports.deleteById = async (req, res) => {
-    let result
-    try {
-        result = await barber.destroy({where: {id: req.params.id}})
-    } catch (error) {
-        console.log("barbersDelete: ", error)
-        res.status(500).send({error:"Something has gone wrong in our monkey pit, lead orangutan has been deployed to fix it up"})
-        return
-    }
-    if (result === 0) {
-        res.status(404).send({error:"barber not found"})
-        return
-    }
-    res
-    .status(204).send()
-}
-
 exports.updateById = async (req, res) => {
     let result
     delete req.body.id
@@ -68,6 +50,23 @@ exports.updateById = async (req, res) => {
     .location(`${getBaseUrl(req)}/barbers/${barber.id}`)
     .json(barber)
 }
+exports.deleteById = async (req, res) => {
+    let result
+    try {
+        result = await barber.destroy({where: {id: req.params.id}})
+    } catch (error) {
+        console.log("barbersDelete: ", error)
+        res.status(500).send({error:"Something has gone wrong in our monkey pit, lead orangutan has been deployed to fix it up"})
+        return
+    }
+    if (result === 0) {
+        res.status(404).send({error:"barber not found"})
+        return
+    }
+    res
+    .status(204).send()
+}
+
 
 getBaseUrl = (request) => {
     return (

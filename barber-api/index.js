@@ -1,6 +1,4 @@
 require("dotenv").config();
-
-
 const express = require('express');
 const cors = require('cors')
 const app = express();
@@ -56,9 +54,9 @@ app.post('/barbers', (req,res) => {
     }
     let barber = {
         id: barbers.length +1,
-        price: req.body.price,
         name: req.body.name,
-        description: req.body.description
+        working_day: req.body.working_day,
+        specialization: req.body.specialization
     }
     barbers.push(barber)
 
