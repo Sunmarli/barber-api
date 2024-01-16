@@ -5,20 +5,19 @@ CREATE TABLE `barbers` (
   `specialization` varchar(30)
 );
 
-CREATE TABLE `client` (
-  `clientID` INT,
-  `clientName` varchar(30),
-  `clientSurename` varchar(30),
+CREATE TABLE `customer` (
+  `id_customer` INT,
+  `customerName` varchar(30),
   `email` varchar(30),
   `phone` varchar(30)
 );
 
-CREATE TABLE `orders` (
-  `orderID` INT,
-  `barberID` INT,
-  `clientID` INT,
-  `day` DATETIME,
-  FOREIGN KEY (`barberID`) REFERENCES `barbers`(`id`),
-  FOREIGN KEY (`clientID`) REFERENCES `client`(`clientID`)
+CREATE TABLE `Booking` (
+  `id_booking` INT,
+  `id_barber` INT,
+  `id_customer` INT,
+  `bookingDate` DATE,
+  FOREIGN KEY (`id_barber`) REFERENCES `barbers`(`id`),
+  FOREIGN KEY (`id_customer`) REFERENCES `customer`(`id_customer`)
 );
 

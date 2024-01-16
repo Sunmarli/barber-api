@@ -10,16 +10,6 @@ const swaggerDocument = yamljs.load('./docs/swagger.yaml');
 
 app.use(cors());
 
-// const barbers = [
-//     { id: 1, name: "John Wick", working_day: "Monday", specialization: "Haircuts" },
-//     { id: 2, name: "Will Smith", working_day: "Tuesday", specialization: "Beard Trims" },
-//     { id: 3, name: "Siim Tamm", working_day: "Wednesday", specialization: "Coloring" },
-//     { id: 4, name: "Marko Polo", working_day: "Thursday", specialization: "Haircuts" },
-//     { id: 5, name: "Basim Muhha", working_day: "Friday", specialization: "Hair Styling" },
-//     { id: 6, name: "Kerli Ostrov", working_day: "Saturday", specialization: "Facial Treatments" },
-//     { id: 7, name: "Siim Kallas", working_day: "Sunday", specialization: "Haircuts" }
-// ];
-
 app.use(express.json());
 
 require("../routes/app_routes")(app)
@@ -27,6 +17,9 @@ require("../routes/app_routes")(app)
 app.get("/errors", async (req,res) => {
     res.statusCode(404).send({"error": "something went wrong"})
 })
+
+
+
 
 // method 1, we subtract one from the id input by the user.
 /*  app.get('/barbers/:id', (req, res) => {
@@ -38,6 +31,12 @@ app.get("/errors", async (req,res) => {
  */
 
  app.get('/barbers/:id', (req, res) => {
+    if (typeof barbers[req.params.id - 1] === 'undefined'){
+        return res.status(404).send({error: "barber not found"})
+    }
+    res.send(barbers[req.params.id - 1])
+ })
+ app.get('/customers/:id', (req, res) => {
     if (typeof barbers[req.params.id - 1] === 'undefined'){
         return res.status(404).send({error: "barber not found"})
     }
@@ -88,10 +87,15 @@ function getBaseUrl(req) {
     return req.connection && req.connection.encrypted ? 'https' : 'http' + `://${req.headers.host}`
 }
        
-// app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-// Sync().then(() => {
-//     app.listen(port, () => {
-//         console.log(`API up at: http://localhost:${port}`);
-//     });
-// });
+
+// const barbers = [
+//     { id: 1, name: "John Wick", working_day: "Monday", specialization: "Haircuts" },
+//     { id: 2, name: "Will Smith", working_day: "Tuesday", specialization: "Beard Trims" },
+//     { id: 3, name: "Siim Tamm", working_day: "Wednesday", specialization: "Coloring" },
+//     { id: 4, name: "Marko Polo", working_day: "Thursday", specialization: "Haircuts" },
+//     { id: 5, name: "Basim Muhha", working_day: "Friday", specialization: "Hair Styling" },
+//     { id: 6, name: "Kerli Ostrov", working_day: "Saturday", specialization: "Facial Treatments" },
+//     { id: 7, name: "Siim Kallas", working_day: "Sunday", specialization: "Haircuts" }
+// ];
+
