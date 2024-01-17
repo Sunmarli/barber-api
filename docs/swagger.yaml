@@ -100,6 +100,151 @@ paths:
       operationId: id
       summary: Returns full details of a given barber.
       description: Returns full details of a given barber, based on user input id by the user.
+  /booking:
+    get:
+      tags:
+        - bookings
+      responses:
+        '200':
+          description: 'Returns a list of bookings'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/bookingDetails'
+          summary: Get list of bookings
+    post:
+      tags:
+        - bookings
+      requestBody:
+        description: A new booking to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newBooking'
+            examples:
+              Parameters missing:
+                value:
+                  error: One or all parameters are missing
+        required: true
+      responses:
+        '201':
+          description: New booking has been created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bookingDetails'
+              examples:
+                Booking that is added:
+                  value:
+                    id_booking: 1
+                    bookingDate: "2024-01-01"
+                    id_customer: 1
+                    id_barber: 1
+        '400':
+          description: One or all parameters are missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  '/bookings/{id}':
+    get:
+      tags:
+        - bookings
+      parameters:
+        - name: id
+          in: path
+          description: ID of booking.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Return full details of a given id booking
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bookingDetails'
+        '404':
+          description: Booking was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /customer:
+    get:
+      tags:
+        - customers
+      responses:
+        '200':
+          description: 'Returns a list of customers'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/customerDetails'
+          summary: Get list of customers
+    post:
+      tags:
+        - customers
+      requestBody:
+        description: A new customer to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newCustomer'
+            examples:
+              Parameters missing:
+                value:
+                  error: One or all parameters are missing
+        required: true
+      responses:
+        '201':
+          description: New customer has been created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customerDetails'
+              examples:
+                Customer that is added:
+                  value:
+                    id_customer: 1
+                    customerName: "John Doe"
+                    phone: "123-456-7890"
+                    mail: "john@example.com"
+        '400':
+          description: One or all parameters are missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  '/customers/{id}':
+  get:
+    tags:
+      - details
+    parameters:
+      - name: id
+        in: path
+        description: ID of customer.
+        required: true
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Return full details of a given id customer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/customerDetails'
+      '404':
+        description: Customer was not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/error'
+
 components:
   schemas:
     error:
@@ -111,7 +256,8 @@ components:
           type: string
       example:
         error: Error message.
-    new-game:
+
+    new-barber:
       title: Root Type for new-barber
       description: new barber object
       required:
@@ -131,3 +277,102 @@ components:
         name: Lile
         working_day: Monday
         specialization: Haircut
+
+    bookingDetails:
+      title: Root Type for booking details
+      description: Booking details object
+      type: object
+      properties:
+        id_booking:
+          type: integer
+        bookingDate:
+          type: string
+          format: date
+        id_customer:
+          type: integer
+        id_barber:
+          type: integer
+
+    newBooking:
+      title: Root Type for new booking
+      description: new booking object
+      required:
+        - bookingDate
+        - id_customer
+        - id_barber
+      type: object
+      properties:
+        bookingDate:
+          type: string
+          format: date
+        id_customer:
+          type: integer
+        id_barber:
+          type: integer
+
+    customerDetails:
+      title: Root Type for customer details
+      description: Customer details object
+      type: object
+      properties:
+        id_customer:
+          type: integer
+        customerName:
+          type: string
+        phone:
+          type: string
+        mail:
+          type: string
+
+    newCustomer:
+      title: Root Type for new customer
+      description: new customer object
+      required:
+        - customerName
+        - phone
+        - mail
+      type: object
+      properties:
+        customerName:
+          type: string
+        phone:
+          type: string
+        mail:
+          type: string
+    get:
+      tags:
+        - details
+      parameters:
+        - name: id
+          in: path
+          description: ID of customer.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Return full details of a given id customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customerDetails'
+        '404':
+          description: Customer was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      title: Root Type for new customer
+      description: new customer object
+      required:
+        - customerName
+        - phone
+        - mail
+      type: object
+      properties:
+        customerName:
+          type: string
+        phone:
+          type: string
+        mail:
+          type: string

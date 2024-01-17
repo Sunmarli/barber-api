@@ -1,5 +1,5 @@
 const {db} = require("../barber-api/db")
-const customer = db.customer
+const customer = db.customers
 
 exports.getAll = async (req,res) => {
     const customers = await customer.findAll({attributes:["id_customer", "customerName", "phone", "mail"]})

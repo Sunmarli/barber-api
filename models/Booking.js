@@ -1,5 +1,8 @@
+const Customer = require("./Customer")
+ const barberModel = require("./barber.model")
+
 module.exports = (sequelize, Sequelize) => {
-    const booking = sequelize.define("booking", {
+    const Booking = sequelize.define("booking", {
         id_booking: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -11,7 +14,6 @@ module.exports = (sequelize, Sequelize) => {
             validate: {
                 isDate: true}
         },
-       
         id_customer: {
             type: Sequelize.DataTypes.INTEGER,
             allowNull: false,
@@ -26,7 +28,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: Barber,
+                model: barberModel,
                 key: "id_barber"
             }
         }

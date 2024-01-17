@@ -16,8 +16,8 @@ const db = {}
 db.Sequelize = Sequelize
 db.sequelize = sequelize
 db.barbers = require("../models/barber.model")(sequelize,Sequelize)
-db.customer = require("../models/Customer")(sequelize, Sequelize)
-//db.Users = require("./models/User.model")(sequelize, Sequelize)
+db.customers = require("../models/Customer")(sequelize, Sequelize)
+db.booking = require("../models/Booking")(sequelize, Sequelize)
 module.exports = db
 
 async function Sync(){

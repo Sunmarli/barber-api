@@ -2,7 +2,7 @@ const {db} = require("../barber-api/db")
 const booking = db.booking
 
 exports.getAll = async (req,res) => {
-    const bookings = await booking.findAll({attributes:["id_booking", "bookingDate", "id_customer", "id_barber"]})
+    const bookings = await booking.findAll({attributes:["id_booking", "bookingDate", "bookingTime","id_customer", "id_service", "id_barber"]})
     res.send(bookings)
 }
 

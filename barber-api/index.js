@@ -1,12 +1,18 @@
 require("dotenv").config();
-const express = require('express');
+const express = require('express')
 const cors = require('cors')
-const app = express();
+const app = express()
+const mariadb = require("mariadb")
+const swaggerUi = require('swagger-ui-express');
+const yamljs = require('yamljs');
+//const swaggerDocument = require('./docs/swagger.json');
+const swaggerDocument = yamljs.load('./docs/swagger.yaml');
+app.use(express.json())
+app.use(cors())
 //const port = 8080
 const port = process.env.PORT
-const swaggerUi = require('swagger-ui-express')
-const yamljs = require('yamljs');
-const swaggerDocument = yamljs.load('./docs/swagger.yaml');
+
+
 
 app.use(cors());
 
@@ -37,10 +43,17 @@ app.get("/errors", async (req,res) => {
     res.send(barbers[req.params.id - 1])
  })
  app.get('/customers/:id', (req, res) => {
-    if (typeof barbers[req.params.id - 1] === 'undefined'){
-        return res.status(404).send({error: "barber not found"})
+    if (typeof customers[req.params.id - 1] === 'undefined'){
+        return res.status(404).send({error: "customer not found"})
     }
-    res.send(barbers[req.params.id - 1])
+    res.send(customers[req.params.id - 1])
+ })
+ 
+ app.get('/bookings/:id', (req, res) => {
+    if (typeof bookings[req.params.id - 1] === 'undefined'){
+        return res.status(404).send({error: "booking not found"})
+    }
+    res.send(bookings[req.params.id - 1])
  })
  
 // method 2, we locate the item with the described id in the request, irrelevant of its location in the array.
@@ -54,7 +67,7 @@ app.get("/errors", async (req,res) => {
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.post('/barbers', (req,res) => {
-    if(!req.body.name || !req.body.price || !req.body.description) {
+    if(!req.body.name || !req.body.working_day || !req.body.specialization) {
         return res.status(400).send({error: "One or all parameters that are required is missing"})
     }
     let barber = {
@@ -70,6 +83,24 @@ app.post('/barbers', (req,res) => {
         .send(barber)
 })
 
+app.post('/customers', (req,res) => {
+    if(!req.body.customerName || !req.body.phone || !req.body.mail) {
+        return res.status(400).send({error: "One or all parameters that are required is missing"})
+    }
+    let customer = {
+        id: customers.length +1,
+        customerName: req.body.customerName,
+        phone: req.body.phone,
+        mail: req.body.mail
+    }
+    customers.push(customer)
+
+    res.status(201)
+        .location(`${getBaseUrl(req)}/customers/${customers.length}`)
+        .send(customer)
+})
+
+
 app.delete('/barbers/:id', (req, res) => {
     if(typeof barbers[req.params.id - 1] === 'undefined') {
         return res.status(404).send({error: "barber not found"})
@@ -79,6 +110,17 @@ app.delete('/barbers/:id', (req, res) => {
 
     res.status(204).send({error: "No Content"})
 })
+
+app.delete('/customers/:id', (req, res) => {
+    if(typeof customers[req.params.id - 1] === 'undefined') {
+        return res.status(404).send({error: "customer not found"})
+    }
+
+    customers.splice(req.params.id - 1, 1)
+
+    res.status(204).send({error: "No Content"})
+})
+
 
 app.listen(port, async () => {
     console.log(`Api up at: Http://localhost:${port}`)})

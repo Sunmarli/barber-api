@@ -42,7 +42,77 @@
                 </div>
             </div>
         </div>
+        <table id="customersTable" class="table table-striped table-bordered">
+            <tr>
+                <th>id</th>
+                <th>customerName</th>
+                <th>phone</th>
+                <th>mail</th>
+               
+            </tr>
+            <tr v-for="customer in customers" :key="customer.id">
+                <td @click="getcustomer(customer.id)" style="cursor: pointer;">{{ customer.id }}</td>
+                <td>{{ customer.customerName }}</td>
+                <td>{{ customer.phone }}</td>
+                <td>{{ customer.mail }}</td>
+               
+            </tr>
+        </table>
+        <div id="customerInfoModal" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <tr><th>ID</th><td>{{customerInModal.id}}</td></tr>
+                            <tr><th>Pealkiri</th><td>{{customerInModal.customerName}}</td></tr>
+                            <tr><th>Autor</th><td>{{customerInModal.phone}}</td></tr>
+                            <tr><th>Žanr</th><td>{{customerInModal.mail}}</td></tr>
+                           
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <table id="bookingTable" class="table table-striped table-bordered">
+            <tr>
+                <th>id_customer</th>
+                <th>bookingDate</th>
+                <th>id_barber</th>
+            </tr>
+            <tr v-for="booking in bookings" :key="booking.id">
+                <td @click="getbooking(booking.id)" style="cursor: pointer;">{{ booking.id_customer }}</td>
+                <td>{{ booking.bookingDate }}</td>
+                <td>{{ booking.id_barber }}</td>
+            </tr>
+        </table>
+        <div id="bookingInfoModal" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <tr><th>ID</th><td>{{bookingInModal.id_customer}}</td></tr>
+                            <tr><th>Kasutaja</th><td>{{bookingInModal.bookingDate}}</td></tr>
+                            <tr><th>Email</th><td>{{bookingInModal.id_barber}}</td></tr>
+                         
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div> 
+            </div>
     </div>
+</div>
+ 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
