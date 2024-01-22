@@ -50,22 +50,22 @@ exports.updateById = async (req, res) => {
     .location(`${getBaseUrl(req)}/customers/${customer.id}`)
     .json(customer)
 }
-// exports.deleteById = async (req, res) => {
-//     let result
-//     try {
-//         result = await customer.destroy({where: {id: req.params.id}})
-//     } catch (error) {
-//         console.log("customersDelete: ", error)
-//         res.status(500).send({error:"Something has gone wrong in our monkey pit, lead orangutan has been deployed to fix it up"})
-//         return
-//     }
-//     if (result === 0) {
-//         res.status(404).send({error:"customer not found"})
-//         return
-//     }
-//     res
-//     .status(204).send()
-// }
+exports.deleteById = async (req, res) => {
+    let result
+    try {
+        result = await customer.destroy({where: {id: req.params.id}})
+    } catch (error) {
+        console.log("customersDelete: ", error)
+        res.status(500).send({error:"Something has gone wrong in our monkey pit, lead orangutan has been deployed to fix it up"})
+        return
+    }
+    if (result === 0) {
+        res.status(404).send({error:"customer not found"})
+        return
+    }
+    res
+    .status(204).send()
+}
 
 
 getBaseUrl = (request) => {
