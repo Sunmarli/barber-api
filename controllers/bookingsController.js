@@ -11,26 +11,7 @@ exports.getById = async (req, res) => {
     res.send(bookings)
 }
 
- /*    exports.createNew = async (req, res) => {
-        let booking
-        try {
-            booking = await booking.create(req.body)
-        } catch (error) {
-            if (error instanceof db.Sequelize.ValidationError) {
-                console.log(error)
-                res.status(400).send({"error":error.errors.map((item)=> item.message)})
-            } else {
-                console.log("bookingsCreate: ", error)
-                res.status(500).send({"error":"Something has gone wrong in our monkey pit, lead orangutan has been deployed to fix it up"})
-            }
-            return
-        }
-        res
-        .status(201)
-        .location(`${getBaseUrl(req)}/bookings/${booking.id}`)
-        .json(booking);
-        console.log(booking)
-    }  */
+
     exports.createNew = async (req, res) => {
         let booking
         try {
@@ -70,6 +51,22 @@ exports.updateById = async (req, res) => {
     .location(`${getBaseUrl(req)}/bookings/${booking.id}`)
     .json(booking)
 }
+/* exports.deleteById = async (req, res) => {
+    let result
+    try {
+        result = await booking.destroy({where: {id: req.params.id}})
+    } catch (error) {
+        console.log("bookingsDelete: ", error)
+        res.status(500).send({error:"Something has gone wrong in our monkey pit, lead orangutan has been deployed to fix it up"})
+        return
+    }
+    if (result === 0) {
+        res.status(404).send({error:"booking not found"})
+        return
+    }
+    res
+    .status(204).send()
+} */
 exports.deleteById = async (req, res) => {
     let result
     try {
@@ -86,7 +83,6 @@ exports.deleteById = async (req, res) => {
     res
     .status(204).send()
 }
-
 
 getBaseUrl = (request) => {
     return (
