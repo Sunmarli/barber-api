@@ -11,26 +11,46 @@ exports.getById = async (req, res) => {
     res.send(bookings)
 }
 
-exports.createNew = async (req, res) => {
-    let booking
-    try {
-        booking = await booking.create(req.body)
-    } catch (error) {
-        if (error instanceof db.Sequelize.ValidationError) {
-            console.log(error)
-            res.status(400).send({"error":error.errors.map((item)=> item.message)})
-        } else {
-            console.log("bookingsCreate: ", error)
-            res.status(500).send({"error":"Something has gone wrong in our monkey pit, lead orangutan has been deployed to fix it up"})
+ /*    exports.createNew = async (req, res) => {
+        let booking
+        try {
+            booking = await booking.create(req.body)
+        } catch (error) {
+            if (error instanceof db.Sequelize.ValidationError) {
+                console.log(error)
+                res.status(400).send({"error":error.errors.map((item)=> item.message)})
+            } else {
+                console.log("bookingsCreate: ", error)
+                res.status(500).send({"error":"Something has gone wrong in our monkey pit, lead orangutan has been deployed to fix it up"})
+            }
+            return
         }
-        return
-    }
-    res
-    .status(201)
-    .location(`${getBaseUrl(req)}/bookings/${booking.id}`)
-    .json(booking);
-    console.log(booking)
-}
+        res
+        .status(201)
+        .location(`${getBaseUrl(req)}/bookings/${booking.id}`)
+        .json(booking);
+        console.log(booking)
+    }  */
+    exports.createNew = async (req, res) => {
+        let booking
+        try {
+            booking = await booking.create(req.body)
+        } catch (error) {
+            if (error instanceof db.Sequelize.ValidationError) {
+                console.log(error)
+                res.status(400).send({"error":error.errors.map((item)=> item.message)})
+            } else {
+                console.log("bookingsCreate: ", error)
+                res.status(500).send({"error":"Something has gone wrong in our monkey pit, lead orangutan has been deployed to fix it up"})
+            }
+            return
+        }
+        res
+        .status(201)
+        .location(`${getBaseUrl(req)}/bookings/${booking.id}`)
+        .json(booking);
+        console.log(booking)
+    } 
 exports.updateById = async (req, res) => {
     let result
     delete req.body.id
