@@ -11,9 +11,6 @@ app.use(express.json())
 app.use(cors())
 //const port = 8080
 const port = process.env.PORT
-
-
-
 app.use(cors());
 
 app.use(express.json());
@@ -23,18 +20,6 @@ require("../routes/app_routes")(app)
 app.get("/errors", async (req,res) => {
     res.statusCode(404).send({"error": "something went wrong"})
 })
-
-
-
-
-// method 1, we subtract one from the id input by the user.
-/*  app.get('/barbers/:id', (req, res) => {
-    if (typeof barbers[req.params.id - 1] === 'undefined'){
-        return res.status(404).send({error: "barber not found"})
-    }
-    res.send(barbers[req.params.id - 1])
- })
- */
 
  app.get('/barbers/:id', (req, res) => {
     if (typeof barbers[req.params.id - 1] === 'undefined'){
@@ -56,13 +41,6 @@ app.get("/errors", async (req,res) => {
     res.send(bookings[req.params.id - 1])
  })
  
-// method 2, we locate the item with the described id in the request, irrelevant of its location in the array.
-// app.get('/barbers/:id', (req, res) => {
-//     if (typeof barbers[req.params.id - 1] === 'undefined'){
-//         return res.status(404).send({error: "barber not found"})
-//     }    
-// const barber = barbers.find(g => g.id== req.params.id);
-// res.send(barber);});  kood by: Nirgi
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 

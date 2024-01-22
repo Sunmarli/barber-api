@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app">
         <table id="barbersTable" class="table table-striped table-bordered">
+            <h1>Barbers</h1>
+            <a href="addBarber.html" class="btn btn-secondary">Add New Barber</a>
             <tr>
                 <th>Name</th>
                 <th>working_day</th>
@@ -43,16 +46,17 @@
             </div>
         </div>
         <table id="customersTable" class="table table-striped table-bordered">
+            <h1>Customers</h1>
             <tr>
-                <th>id</th>
+                
                 <th>customerName</th>
                 <th>phone</th>
                 <th>mail</th>
                
             </tr>
             <tr v-for="customer in customers" :key="customer.id">
-                <td @click="getcustomer(customer.id)" style="cursor: pointer;">{{ customer.id }}</td>
-                <td>{{ customer.customerName }}</td>
+                <td @click="getcustomer(customer.id)" style="cursor: pointer;">{{ customer.customerName }}</td>
+               
                 <td>{{ customer.phone }}</td>
                 <td>{{ customer.mail }}</td>
                
@@ -80,6 +84,7 @@
             </div>
         </div>
         <table id="bookingTable" class="table table-striped table-bordered">
+            <h1>Orders</h1>
             <tr>
                 <th>id_customer</th>
                 <th>bookingDate</th>
